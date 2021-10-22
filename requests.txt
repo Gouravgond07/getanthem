@@ -1,0 +1,28 @@
+1. Create Meet : POST
+http://localhost:3000/empMeet/createMeet
+{
+    "date": "2021-10-22",
+    "startDate": "11:05",
+    "endDate": "11:59"
+}
+
+2. availableSlots : GET
+
+http://localhost:3000/empMeet/availableSlots/2021-10-22
+http://localhost:3000/empMeet/availableSlots/:date
+
+
+3. reSchedule
+http://localhost:3000/empMeet/createMeet
+{
+    "meetId": 6172c7b6cef3501025b81d47 / <ObjectId>
+    "date": "2021-10-22",
+    "startDate": "11:05",
+    "endDate": "11:59"
+}
+
+
+4. Delete Meet : delete
+http://localhost:3000/empMeet/cancelMeet/6172c7b6cef3501025b81d47
+http://localhost:3000/empMeet/cancelMeet/<ObjectId>
+
