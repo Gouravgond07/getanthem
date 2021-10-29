@@ -2,19 +2,20 @@ const EmpMeet = require('../models/empMeet.model');
 const moment = require('moment');
 class EmpMeetService {
     /**
-     * 
-     * @param {Date} date 
-     * @param {Date} startTime 
-     * @param {Date} endTime 
+     * @param {Date} date
+     * @param {Date} startTime
+     * @param {Date} endTime
      * @return {Promise<Boolean>}
      */
     static async validDateMeet(date, startTime, endTime) {
         try {
             const data = await EmpMeet.findOne({ date }).or([
                 { $and: [{ startDate: { $gte: startTime } }, { endDate: { $lte: startTime } }] },
-                { $and: [{ startDate: { $gte: endTime } }, { endDate: { $lte: endTime } }] },
-                { $and: [{ startDate: { $gte: startTime } }, { endDate: { $lte: endTime } }] }
+                { $and: [{ startDate: { $lte: startTime } }, { endDate: { $lte: endTime } }] },
+                { $and: [{ startDate: { $gte: startTime } }, { endDate: { $gte: endTime } }] }
             ]);
+
+
             if (data) {
                 return false;
             }
@@ -36,8 +37,8 @@ class EmpMeetService {
         try {
             const data = await EmpMeet.findOne({ date, _id: { $ne: meetId } }).or([
                 { $and: [{ startDate: { $gte: startTime } }, { endDate: { $lte: startTime } }] },
-                { $and: [{ startDate: { $gte: endTime } }, { endDate: { $lte: endTime } }] },
-                { $and: [{ startDate: { $gte: startTime } }, { endDate: { $lte: endTime } }] }
+                { $and: [{ startDate: { $lte: startTime } }, { endDate: { $lte: endTime } }] },
+                { $and: [{ startDate: { $gte: startTime } }, { endDate: { $gte: endTime } }] }
             ]);
             if (data) {
                 return false;

@@ -10,9 +10,9 @@ exports.createMeet = async (req, res, next) => {
         const nEndDate = new Date(moment(nDate).format('YYYY-MM-DD') + ' ' + endDate);
         const startLimit = new Date(moment(nDate).format('YYYY-MM-DD') + ' ' + '09:00')
         const endLimit = new Date(moment(nDate).format('YYYY-MM-DD') + ' ' + '18:00')
-        if (!(nStartDate >= startLimit && nEndDate <= endLimit)) {
-            return res.status(400).json({ msg: 'time must be 09:00 to 18:00' })
-        }
+        // if (!(nStartDate >= startLimit && nEndDate <= endLimit)) {
+        //     return res.status(400).json({ msg: 'time must be 09:00 to 18:00' })
+        // }
         const emp = await EmpMeetService.createMeet(nDate, nStartDate, nEndDate);
         res.json(emp)
     } catch (error) {
@@ -28,6 +28,7 @@ exports.getAvailableSlots = async (req, res, next) => {
         const data = await EmpMeetService.getSlots(nDate);
         let mappedData = data.map(x => {
             return {
+                _id: x._id,
                 data: moment(x.date).format('YYYY-MM-DD'),
                 startTime: moment(x.startDate).format('HH:mm'),
                 endTime: moment(x.endDate).format('HH:mm')
